@@ -1,2 +1,3 @@
-# SSTG_DUPA
-Rzeczy na inf
+# SSTG_MMMM 
+# Rzeczy na inf
+# Maksiu ma zakaz pisania tu
