@@ -1,2 +1,2 @@
-# SSTG_MMM
+# SSTG_MMMM
 Rzeczy na inf
