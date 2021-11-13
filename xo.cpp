@@ -9,12 +9,15 @@ using namespace std;
 
 
 char plg [ 9 ] = {'1','2','3','4','5','6','7','8','9'};//!plansza_gry
-char plgs [ 9 ] = {'1','2','3','4','5','6','7','8','9'};//!plansza_gry_sprawdzajaca
+char plgs [ 9 ] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};//!plansza_gry_sprawdzajaca
 int wyb = 0;//!wybor
 int wybw = 0;//!wybor_wlasciwy
 char azna = 'x';//!aktywny_znak
 int sws = 0;//!sprawdzanie_wygranej_status
 int zp = 0;//!zapelnienie_planszy
+
+int swsp = 0;//!sprawdzanie_wygranej_status_pomocowe
+int zpp = 0;//!zapelnienie_planszy_pomocwe
 
 void dpg( )//!drukuj_plansze_gry
 	{
@@ -28,20 +31,80 @@ void dpg( )//!drukuj_plansze_gry
 	cout << "\n\n";
 	}
 
+void scwp( )//!sprawdzanie_czy_wygrana_pomocowa
+	{
+	zpp = 0;
+	if ( plgs [ 0 ] == 'o' && plgs [ 1 ] == 'o' && plgs [ 2 ] == 'o' )
+		swsp = 2;
+	if ( plgs [ 3 ] == 'o' && plgs [ 4 ] == 'o' && plgs [ 5 ] == 'o' )
+		swsp = 2;
+	if ( plgs [ 6 ] == 'o' && plgs [ 7 ] == 'o' && plgs [ 8 ] == 'o' )
+		swsp = 2;
+	//!===========================================================
+	if ( plgs [ 0 ] == 'o' && plgs [ 3 ] == 'o' && plgs [ 6 ] == 'o' )
+		swsp = 2;
+	if ( plgs [ 1 ] == 'o' && plgs [ 4 ] == 'o' && plgs [ 7 ] == 'o' )
+		swsp = 2;
+	if ( plgs [ 2 ] == 'o' && plgs [ 5 ] == 'o' && plgs [ 8 ] == 'o' )
+		swsp = 2;
+	//!===========================================================
+	if ( plgs [ 0 ] == 'o' && plgs [ 4 ] == 'o' && plgs [ 8 ] == 'o' )
+		swsp = 2;
+	if ( plgs [ 2 ] == 'o' && plgs [ 4 ] == 'o' && plgs [ 6 ] == 'o' )
+		swsp = 2;
+
+	}
+
+void swz( )//!samo_wkladanie_znaku
+	{
+	for ( int i = 0; i < 9; i++ )
+		plgs [ i ] = plg [ i ];
+	for ( int i = 0; i < 9; i++ )
+		{
+		if ( plg [ i ] != 'x' && plg [ i ] != 'o' )
+			{
+			plgs [ i ] = 'o';
+			scwp( );
+			if ( swsp == 2 ) {
+				plg [ i ] = 'o';
+				break;
+				}
+			else
+				{
+				for ( int a = 0; a < 9; a++ )
+					{
+					if ( plg [ a ] != 'x' && plgs [ a ] != 'o' )
+						{
+						plgs [ a ] = 'o';
+						scwp( );
+						if ( swsp == 2 )
+							{
+							plg [ i ] = 'o';
+							break;
+							break;
+							}
+						else
+							{
+							plg [ a ] = 'o';
+							break;
+							break;
+							}
+						}
+					}
+				}
+			}
+		}
+	azna = 'x';
+	}
+
+
 void wpz( )//!wybieranie_pola_znaku
 	{
 	if ( azna == 'x' )
 		cin >> wyb;
 	if ( azna == 'o' )
 		{
-		for ( int i = 0; i < 9; i++ )
-			plg [ i ] = plgs [ i ];
-		for ( int i = 0; i < 9; i++ )
-			{
-			if ( plgs [ i ] != 'x' && plgs [ i ] != 'o' )
-				plgs [ i ] = 'o';
-			if ( )
-			}
+		swz( );
 		}
 	switch ( wyb )
 		{
@@ -60,12 +123,8 @@ void wpz( )//!wybieranie_pola_znaku
 		plg [ wybw ] = 'x';
 		azna = 'o';
 		}
-	if ( azna == 'o' && plg [ wybw ] != 'x' && plg [ wybw ] != 'o' )
-		{
-		plg [ wybw ] = 'o';
-		azna = 'x';
-		}
 	}
+
 
 void scw( )//!sprawdzanie_czy_wygrana
 	{
@@ -125,10 +184,7 @@ void dnk( )//!drukowanie_napisow_koncowych
 		cout << "REMIS" << endl;
 	}
 
-void swz( )//!samo_wkladanie_znaku
-	{
 
-	}
 
 int main( )
 	{
